@@ -24,6 +24,16 @@
 ---
 
 ## Semaine 2
+!!! Recherche
+    - Recherche d'une API Google
+      Étude de l’API Google Places pour récupérer des informations détaillées sur les restaurants 
+    - Analyse fonctionnelle d’Uber Eats:
+      Observation des fonctionnalités offertes par Uber Eats ,
+      Interaction avec les clients,
+      Notifications et suggestions,
+      Interface utilisateur pour les deux rôles (client / restaurateur) 
+    - usage des formulaire 
+
 
 ## Semaine 3
 

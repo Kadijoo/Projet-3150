@@ -1,7 +1,7 @@
-# Projet IFT3150: Nom du projet
+# Projet IFT3150: PLATEFORME COLLABORATIVE DE VALIDATION DES MENUS POUR RESTAURANTS
 
 > **Thèmes**: Science de données, Génie logiciel  
-> **Superviseur**: Nom du supervisuer  
+> **Superviseur**: Louis-Edouard LAFONTANT  
 > **Collaborateurs:** Nom de(s) collaborateur(s) et partenaire(s)
 
 ## Informations importantes
@@ -14,8 +14,8 @@
 
 ## Équipe
 
-- Alice Dupont: Responsable de...
-- Bob Tremblay: Responsable de...
+- Christelle Phalonne Djuidjé : 20259975
+- Kady Danella Ingabire Matricule : 20209230
 
 ## Description du projet
 
