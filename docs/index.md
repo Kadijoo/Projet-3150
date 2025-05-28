@@ -1,5 +1,4 @@
 # Projet IFT3150: PLATEFORME COLLABORATIVE DE VALIDATION DES MENUS POUR RESTAURANTS
-# Projet IFT3150: TestTogether
 
 > **Thèmes**: Science de données, Génie logiciel  
 > **Superviseur**: Louis-Edouard LAFONTANT  
@@ -17,8 +16,6 @@
 
 ## Équipe
 
-- Christelle Phalonne Djuidjé : 20259975
-- Kady Danella Ingabire Matricule : 20209230
 - Kady Danella Ingabire
 - Christelle Phalonne Djuidjé
 
