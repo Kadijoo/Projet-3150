@@ -2,8 +2,6 @@
 
 > **Thèmes**: Science de données, Génie logiciel  
 > **Superviseur**: Louis-Edouard LAFONTANT  
-> **Collaborateurs:** Nom de(s) collaborateur(s) et partenaire(s)
-> **Superviseur**: Louis Edouard Lafontant  
 > **Collaborateurs:** N/A
 
 ## Informations importantes
