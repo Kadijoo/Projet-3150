@@ -59,11 +59,11 @@ Le projet sera réalisé en plusieurs étapes :
 
 - Choix technologiques :
 
-  Front-end : HTML, CSS, JavaScript (avec maquettes Figma)
+  Front-end : React.js
 
-  Back-end : Python (FastAPI)
+  Back-end : Node.js et Express.js
 
-  Base de données : PostgreSQL
+  Base de données : MongoDB
 
   API externe : Google Places API pour enrichir les profils restaurants et récupérer les avis.
 
