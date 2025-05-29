@@ -36,8 +36,21 @@
 
 
 ## Semaine 3
+Analyse, exploration technique et début de conception
+
+    - Exploration technique : Test de l’API Google Places via Postman afin d’examiner les données retournées (informations sur les    restaurants,   avis, coordonnées, etc.) et évaluer son intégration potentielle dans le projet.
+    - Analyse fonctionnelle : Début de l’étape d’analyse du projet, identification des besoins utilisateurs et des fonctionnalités clés à développer.
+    - Modélisation : Conception du diagramme de classe, représentant les différentes entités (utilisateur, restaurant, menu, message, etc.), leurs attributs, et les relations entre elles.
+    - Conception UI/UX : Lancement du prototypage de l’interface utilisateur avec Figma : création des premières maquettes des pages principales (accueil, inscription, espace feedback, espace restaurateur,  menu cote client,menu cote restaurateur, liste des feedback cote restaurateur etc..).
 
 ## Semaine 4
+Finalisation du prototype, avancée de la conception et recherche d'une nouvelle alternative d'API
+
+    - Finalisation du prototype Figma : Intégration des ajustements et retours reçus afin d’améliorer l’expérience utilisateur. Le prototype couvre désormais les principales interfaces du projet 
+    - Poursuite de la modélisation : Affinement du diagramme de classe avec ajout ou révision des relations, méthodes et attributs en fonction des nouvelles exigences identifiées.
+    - Début du diagramme de cas d’utilisation : Identification des scénarios principaux entre les différents acteurs (client, restaurateur, système), en préparation de la phase de développement.
+    - Exploration d’alternatives à l’API Google Places pour récupérer des informations détaillées sur les menus des restaurants, cette fonctionnalité n’étant pas couverte directement par L'API Places. 
+    Des pistes comme l’intégration de bases de données internes, des APIs de gestion de menu, ou des solutions hybrides (scraping autorisé + API privées) sont envisagées.
 
 ## Semaine 5
 
