@@ -20,9 +20,10 @@ Elle affichera les informations reçues du contrôleur (ex. : listes de menus, m
 - API externe : Google Places API permet d'enrichir les profils des restaurants avec des informations vérifiées, telles que la localisation, les horaires, les avis Google, et d'autres détails utiles.
 - Prototype: outil de conception d’interface collaboratif qui permet de créer des maquettes interactives et de simuler la navigation entre les pages. Nous l'avons utilisé pour concevoir le prototype visuel de la plateforme, définir l’architecture des pages, organiser les éléments (boutons, formulaires, sections), et tester l’expérience utilisateur avant le développement.
 
-## Diagrammes utilisés
 
-- Diagramme de classe: Le diagramme de classes représente la structure statique de l'application en modélisant les principales entités du système, leurs attributs, ainsi que les relations entre elles. Il permet de mieux comprendre l’organisation des données, les responsabilités de chaque classe, et les interactions possibles dans l’application.
+## Diagramme utilisé
+
+Diagramme de classe: Le diagramme de classe représente la structure statique de l'application en modélisant les principales entités du système, leurs attributs, ainsi que les relations entre elles. Il permet de mieux comprendre l’organisation des données, les responsabilités de chaque classe, et les interactions possibles dans l’application.
 
 Schéma diagramme de classe: 
 
