@@ -30,12 +30,6 @@ Schéma diagramme de classe:
 
 
 
-- Diagramme de cas d'utilisation: Le diagramme de cas d’utilisation permet de visualiser les principales interactions entre les acteurs (utilisateurs du système) et les fonctionnalités offertes par la plateforme. Il met en évidence les objectifs des utilisateurs et les services proposés par l’application.
-
-Schéma diagramme de cas d'utilisation: 
-
-
-
 ## Prototype
 
 - lien du prototype vers figma: 
