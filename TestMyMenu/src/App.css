@@ -1,0 +1,113 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Page */
+.app {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  padding: 15px 30px;
+}
+
+.logo {
+  font-size: 24px;
+  color: #61dafb;
+  font-weight: bold;
+}
+
+.nav-buttons {
+  display: flex;
+}
+
+.nav-buttons button {
+  background: none;
+  border: 1px solid #999;
+  color: white;
+  margin-left: 15px;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.nav-buttons button:hover {
+  background-color: #61dafb;
+  color: #000;
+}
+
+/* Main content */
+.main-content {
+  padding: 30px;
+  text-align: left;
+}
+
+.main-content h2 {
+  margin-bottom: 30px;
+}
+
+/* Dish section */
+.dish-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: left;
+  margin-top: 30px;
+}
+
+.dish-section {
+  display: flex;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 15px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  max-width: 700px;
+  gap: 20px;
+}
+
+.dish-image {
+  width: 300px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.dish-info {
+  flex: 1;
+  text-align: left;
+}
+
+.dish-info p {
+  margin-bottom: 10px;
+}
+
+.dish-info ul {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.opinion-button {
+  background-color: #61dafb;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.opinion-button:hover {
+  background-color: #21a1f1;
+  color: white;
+}
+
