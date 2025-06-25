@@ -27,7 +27,8 @@ Diagramme de classe: Le diagramme de classe représente la structure statique de
 
 Schéma diagramme de classe: 
 
-![Diagramme de classe UML](./diagramme-classe.jpg)
+![Diagramme de classe UML](./diagramme-classe.png)
+
 
 
 ## Prototype

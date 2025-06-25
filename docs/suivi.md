@@ -54,7 +54,11 @@ Finalisation du prototype, avancée de la conception et recherche d'une nouvelle
 
 ## Semaine 5
 
+Intégration des dernieres modifications apportées au diagramme de classes ainsi que les ajustements réalisés sur le prototype Figma, en tenant compte des retours et améliorations identifiées lors de l'analyse.
+
 ## Semaine 6
+
+Installation des différents outils nécessaires à l’implémentation du projet (environnements de développement, bibliothèques, dépendances, etc.). L’implémentation a également débuté, à la fois côté frontend (structure de base avec React) et côté backend (mise en place du serveur avec Express et des premières routes API).
 
 ## Semaine 7
 
