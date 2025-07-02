@@ -1,7 +1,23 @@
 const Restaurant = require("../models/Restaurant");
 
+const User = require("../models/User");
+
 exports.create = async (req, res) => {
   try {
+    const { proprietaire } = req.body;
+
+    // 1. Vérifier que le propriétaire est bien un utilisateur existant
+    const user = await User.findById(proprietaire);
+    if (!user) {
+      return res.status(404).json({ error: "Propriétaire introuvable." });
+    }
+
+    // 2. Vérifier qu'il est bien de type "restaurateur"
+    if (user.type_utilisateur !== "restaurateur") {
+      return res.status(400).json({ error: "Seuls les restaurateurs peuvent créer un restaurant." });
+    }
+
+    // 3. Créer le restaurant
     const restaurant = new Restaurant(req.body);
     await restaurant.save();
     res.status(201).json(restaurant);

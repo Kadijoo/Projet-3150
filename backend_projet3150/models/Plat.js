@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
-const PlatSchema = new mongoose.Schema({
-  nom_plat: { type: String, required: true },
-  description: { type: String },
-  ingredients: { type: String },
-  feedback: { type: String },
-  suggestions: { type: String },
-  restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }, // clé étrangère
+const platSchema = new mongoose.Schema({
+  nom: { type: String, required: true, trim: true },
+  prix: { type: Number, required: true, min: 0 },
+  tags: { type: [String], default: [] },
+  menu: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Menu", 
+    required: true 
+  }
 });
 
-module.exports = mongoose.model("Plat", PlatSchema);
+module.exports = mongoose.model("Plat", platSchema);
