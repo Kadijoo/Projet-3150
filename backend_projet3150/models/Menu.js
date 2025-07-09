@@ -10,7 +10,6 @@ const menuSchema = new mongoose.Schema({
   date_creation: { type: Date, default: Date.now },
   date_dern_modification: { type: Date, default: Date.now },
   disponible: { type: Boolean, default: true },
-  sections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Section' }],
   restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant", required: true }
 });
 

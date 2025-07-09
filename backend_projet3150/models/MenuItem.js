@@ -9,7 +9,8 @@ const menuItemSchema = new mongoose.Schema({
     enum: ["actif", "inactif", "en_attente"], 
     default: "actif"
   },
-  section: { type: mongoose.Schema.Types.ObjectId, ref: "Section", required: true }
+  section: { type: mongoose.Schema.Types.ObjectId, ref: "Section", required: true },
+  menu: { type: mongoose.Schema.Types.ObjectId, ref: "Menu", required: true }
 });
 
 module.exports = mongoose.model('MenuItem', menuItemSchema);

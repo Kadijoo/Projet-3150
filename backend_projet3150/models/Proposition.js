@@ -10,6 +10,15 @@ const propositionSchema = new mongoose.Schema({
   },
   date_creation: { type: Date, default: Date.now },
   soumis: { type: Boolean, default: false },
+  menu: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Menu"
+  },
+  utilisateur: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Utilisateur",
+    required: true
+  },
   restaurant: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: "Restaurant", 

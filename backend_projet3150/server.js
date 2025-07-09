@@ -1,4 +1,29 @@
-const express = require("express");
+// server.js
+require("dotenv").config();
+const mongoose = require("mongoose");
+const app = require("./app");
+
+const port = process.env.PORT || 5000;
+const uri = process.env.ATLAS_URI;
+
+mongoose.connect(uri);
+const connection = mongoose.connection;
+
+connection.once("open", () => {
+  console.log("Successfully connected to MongoDB");
+});
+
+connection.on("error", (err) => {
+  console.error(`MongoDB connection error: ${err}`);
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
+});
+
+
+
+/*const express = require("express");
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -16,7 +41,7 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("Successfully connected to MongoDB");
 });
-/*mot de passe de la bd: BvmcBd0i5S1Tu4yk  nom de la base de donne : dbprojet2*/
+/*mot de passe de la bd: BvmcBd0i5S1Tu4yk  nom de la base de donne : dbprojet2
 connection.on('error', (err) => {
     console.error(`MongoDB connection error: ${err}`);
 });
@@ -54,4 +79,4 @@ app.use("/api/sections", sectionRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
-});
+});*/

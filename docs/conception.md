@@ -27,7 +27,7 @@ Diagramme de classe: Le diagramme de classe représente la structure statique de
 
 Schéma diagramme de classe: 
 
-![Diagramme de classe UML](./diagramme-classe.jpg)
+![Diagramme de classe UML](./Diagramme-classe.png)
 
 
 
@@ -35,5 +35,7 @@ Schéma diagramme de classe:
 
 - lien du prototype vers figma: 
 
-https://www.figma.com/proto/FUPyLLIEeKhFIXdpyJFAXw/prototype-TestMyMenu?node-id=2003-121&p=f&t=eFulUY7hQle9damV-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2003%3A121 
+<a href="https://www.figma.com/proto/FUPyLLIEeKhFIXdpyJFAXw/prototype-TestMyMenu?node-id=2003-121&p=f&t=eFulUY7hQle9damV-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2003%3A121 " target="_blank" rel="noopener">Voir Prototype</a>
+
+
 

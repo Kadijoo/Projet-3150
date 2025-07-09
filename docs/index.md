@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-# Projet IFT3150: Plateforme collaborative de validation des menus pour restaurants
 
-> **Thèmes**: Science de données, Génie logiciel  
-> **Superviseur**: Louis Edouard Lafontant  
-=======
 # Projet IFT3150: PLATEFORME COLLABORATIVE DE VALIDATION DES MENUS POUR RESTAURANTS
 
 > **Thèmes**: Science de données, Génie logiciel  
 > **Superviseur**: Louis-Edouard LAFONTANT  
->>>>>>> 390db9d9a01a7ba2b7656e65eb75dca9548ef207
 > **Collaborateurs:** N/A
 
 ## Informations importantes
