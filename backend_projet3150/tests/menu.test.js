@@ -80,7 +80,10 @@ describe("Contrôleur Menu", () => {
 
     const res = await request(app)
       .put(`/api/menus/${menu._id}`)
-      .send({ titre: "Nouveau Menu" });
+      .send({ 
+      titre: "Nouveau Menu", 
+      restaurant: String(restaurant._id)  // récupéré avant dans le test
+})
 
     expect(res.statusCode).toBe(200);
     expect(res.body.titre).toBe("Nouveau Menu");
