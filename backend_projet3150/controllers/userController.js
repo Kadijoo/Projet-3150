@@ -1,16 +1,16 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-
 
 exports.registerClient = async (req, res) => {
   try {
-    const { nom, email, mot_de_passe } = req.body;
+    const { nom, email, mot_passe } = req.body;
+
     const user = new User({
       nom,
       email,
-      mot_de_passe, // pense à hasher ensuite
+      mot_passe,
       type_utilisateur: "client"
     });
+
     await user.save();
     res.status(201).json({ message: "Utilisateur enregistré." });
   } catch (err) {
@@ -21,16 +21,26 @@ exports.registerClient = async (req, res) => {
 exports.registerRestaurateur = async (req, res) => {
   try {
     const {
-      nom, email, mot_de_passe, telephone, adresse,
-      type_cuisine, logo, description
+      nom_restaurant,
+      email,
+      mot_passe,
+      telephone,
+      adresse,
+      type_cuisine,
+      logo,
+      description
     } = req.body;
 
     const user = new User({
-      nom,
+      nom_restaurant,
       email,
-      mot_de_passe,
-      type_utilisateur: "restaurateur"
-      // Optionnel : tu peux aussi enregistrer un modèle `Restaurant` ici
+      mot_passe,
+      type_utilisateur: "restaurateur",
+      telephone,
+      adresse,
+      type_cuisine,
+      logo,
+      description
     });
 
     await user.save();
@@ -50,15 +60,15 @@ exports.login = async (req, res) => {
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
 
-    if (user.mot_de_passe !== mot_de_passe) {
+    if (user.mot_passe !== mot_de_passe) {
       return res.status(401).json({ message: "Mot de passe incorrect" });
     }
 
-    res.json({
+    res.status(200).json({
       message: "Connexion réussie",
       utilisateur: {
         id: user._id,
-        nom: user.nom,
+        nom: user.nom || user.nom_restaurant,
         type: user.type_utilisateur
       }
     });

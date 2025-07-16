@@ -1,4 +1,4 @@
-// ✅ tests/plat.controller.test.js
+//  tests/plat.controller.test.js
 const request = require("supertest");
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");

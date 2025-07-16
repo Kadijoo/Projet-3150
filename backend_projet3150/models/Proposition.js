@@ -10,20 +10,14 @@ const propositionSchema = new mongoose.Schema({
   },
   date_creation: { type: Date, default: Date.now },
   soumis: { type: Boolean, default: false },
-  menu: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: "Menu"
-  },
+  menuItem: { type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem', required: true },
   utilisateur: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Utilisateur",
+    ref: "User",
     required: true
   },
-  restaurant: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: "Restaurant", 
-    required: true 
-  }
+  
+  
 });
 
 module.exports = mongoose.model("Proposition", propositionSchema);

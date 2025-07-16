@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
 const sectionSchema = new mongoose.Schema({
-  titre: String,
-  menu: { type: mongoose.Schema.Types.ObjectId, ref: 'Menu' },
-  items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem' }]
+  nom: { type: String, required: true },
+  menu: { type: mongoose.Schema.Types.ObjectId, ref: 'Menu', required: true }, // Association à Menu
 });
 
 module.exports = mongoose.model('Section', sectionSchema);

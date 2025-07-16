@@ -13,22 +13,25 @@ exports.getMenuItems = async (req, res) => {
 exports.createMenuItem = async (req, res) => {
   try {
     const { menuId } = req.params;
-    const { nom, description, position, statut } = req.body;
+    const { nom, description, position, statut, section } = req.body;
 
     const item = new MenuItem({
       menu: menuId,
       nom,
       description,
       position,
-      statut
+      statut,
+      section
     });
 
     await item.save();
     res.status(201).json(item);
   } catch (err) {
+    console.error("Erreur création menuItem:", err); 
     res.status(500).json({ message: "Erreur lors de la création de l'item", err });
   }
 };
+
 
 exports.updateMenuItem = async (req, res) => {
   try {

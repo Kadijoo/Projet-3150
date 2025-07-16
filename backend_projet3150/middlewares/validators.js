@@ -102,18 +102,27 @@ exports.validateMenuItem = (req, res, next) => {
 //-------Notification------
 
 exports.validateNotification = (req, res, next) => {
-  const { message, utilisateur } = req.body;
+  const { message, utilisateur, lu } = req.body;
 
-  if (!message || message.trim() === "") {
-    return res.status(400).json({ error: "Le message de la notification est requis." });
+  // Validation stricte pour les requêtes POST (création)
+  if (req.method === "POST") {
+    if (!message || message.trim() === "") {
+      return res.status(400).json({ error: "Le message de la notification est requis." });
+    }
+
+    if (!utilisateur) {
+      return res.status(400).json({ error: "L'utilisateur concerné est requis." });
+    }
   }
 
-  if (!utilisateur) {
-    return res.status(400).json({ error: "L'utilisateur concerné est requis." });
+  // Validation optionnelle pour les mises à jour (PUT)
+  if (lu !== undefined && typeof lu !== "boolean") {
+    return res.status(400).json({ error: "Le champ 'lu' doit être un booléen." });
   }
 
   next();
 };
+
 
 //-------Plats-----
 
@@ -168,23 +177,23 @@ exports.validatePlatOnUpdate = (req, res, next) => {
 //-------Proposition-----
 
 exports.validateProposition = (req, res, next) => {
-  const { nom, statut, restaurant } = req.body;
+  const { nom, menuItem, utilisateur } = req.body;
 
   if (!nom || nom.trim() === "") {
     return res.status(400).json({ error: "Le nom de la proposition est requis." });
   }
 
-  const validStatuts = ["en attente", "acceptée", "rejetée"];
-  if (statut && !validStatuts.includes(statut)) {
-    return res.status(400).json({ error: `Le statut doit être parmi : ${validStatuts.join(", ")}` });
+  if (!menuItem || menuItem.trim() === "") {
+    return res.status(400).json({ error: "L'identifiant du plat (menuItem) est requis." });
   }
 
-  if (!restaurant) {
-    return res.status(400).json({ error: "Le restaurant associé à la proposition est requis." });
+  if (!utilisateur || utilisateur.trim() === "") {
+    return res.status(400).json({ error: "L'identifiant de l'utilisateur est requis." });
   }
 
   next();
 };
+
 
 //------Restaurant-------
 
@@ -211,31 +220,32 @@ exports.validateRestaurant = (req, res, next) => {
 };
 
 //---------section--------
-exports.validateSection = (req, res, next) => {
-  const { titre, menu } = req.body;
 
-  if (!titre || titre.trim() === "") {
-    return res.status(400).json({ error: "Le titre de la section est requis." });
+exports.validateSection = (req, res, next) => {
+  const { nom, menu } = req.body;
+
+  if (!nom || nom.trim() === "") {
+    return res.status(400).json({ error: "Le nom de la section est requis." });
   }
 
-  if (!menu) {
+  if (!menu || menu.trim() === "") {
     return res.status(400).json({ error: "L'identifiant du menu parent est requis." });
   }
 
   next();
 };
 
+
 //---------user-----------
 
-exports.validateUser = (req, res, next) => {
-  const { nom_restaurant, email, mot_passe, type_utilisateur } = req.body;
+exports.validateRegisterClient = (req, res, next) => {
+  const { nom, email, mot_passe, type_utilisateur } = req.body;
 
-  if (!nom_restaurant || nom_restaurant.trim() === "") {
-    return res.status(400).json({ error: "Le nom du restaurant est requis." });
+  if (!nom || nom.trim() === "") {
+    return res.status(400).json({ error: "Le nom est requis pour un client." });
   }
 
-  const emailRegex = /.+\@.+\..+/;
-  if (!email || !emailRegex.test(email)) {
+  if (!email || !/.+\@.+\..+/.test(email)) {
     return res.status(400).json({ error: "Un email valide est requis." });
   }
 
@@ -243,33 +253,81 @@ exports.validateUser = (req, res, next) => {
     return res.status(400).json({ error: "Le mot de passe doit contenir au moins 6 caractères." });
   }
 
-  if (!["client", "restaurateur"].includes(type_utilisateur)) {
-    return res.status(400).json({ error: "Le type d'utilisateur doit être 'client' ou 'restaurateur'." });
+  if (type_utilisateur !== "client") {
+    return res.status(400).json({ error: "Le type d'utilisateur doit être 'client'." });
   }
 
   next();
 };
+
+exports.validateRegisterRestaurateur = (req, res, next) => {
+  const { nom_restaurant, email, mot_passe, type_utilisateur } = req.body;
+
+  if (!nom_restaurant || nom_restaurant.trim() === "") {
+    return res.status(400).json({ error: "Le nom du restaurant est requis." });
+  }
+
+  if (!email || !/.+\@.+\..+/.test(email)) {
+    return res.status(400).json({ error: "Un email valide est requis." });
+  }
+
+  if (!mot_passe || mot_passe.length < 6) {
+    return res.status(400).json({ error: "Le mot de passe doit contenir au moins 6 caractères." });
+  }
+
+  if (type_utilisateur !== "restaurateur") {
+    return res.status(400).json({ error: "Le type d'utilisateur doit être 'restaurateur'." });
+  }
+
+  next();
+};
+
+exports.validateLogin = (req, res, next) => {
+  const { email, mot_de_passe, type_utilisateur } = req.body;
+
+  if (!email || !/.+\@.+\..+/.test(email)) {
+    return res.status(400).json({ error: "Un email valide est requis." });
+  }
+
+  if (!mot_de_passe || mot_de_passe.length < 6) {
+    return res.status(400).json({ error: "Le mot de passe est requis (6 caractères min)." });
+  }
+
+  if (!["client", "restaurateur"].includes(type_utilisateur)) {
+    return res.status(400).json({ error: "Type utilisateur invalide." });
+  }
+
+  next();
+};
+
+
 
 //----------vote------------
 
 exports.validateVote = (req, res, next) => {
   const { type, auteur, cible, cibleModel } = req.body;
 
-  if (!["UP", "DOWN"].includes(type)) {
+  // Vérifie le type de vote
+  if (!type || !["UP", "DOWN"].includes(type)) {
     return res.status(400).json({ error: "Le type de vote doit être 'UP' ou 'DOWN'." });
   }
 
-  if (!auteur) {
+  // Vérifie la présence de l’auteur
+  if (!auteur || auteur.trim() === "") {
     return res.status(400).json({ error: "L'auteur du vote est requis." });
   }
 
-  if (!cible || !cibleModel) {
-    return res.status(400).json({ error: "La cible et le modèle cible sont requis." });
+  // Vérifie la cible
+  if (!cible || cible.trim() === "") {
+    return res.status(400).json({ error: "La cible du vote est requise." });
   }
 
-  if (!["Menu", "Plat", "Avis"].includes(cibleModel)) {
-    return res.status(400).json({ error: "Le modèle cible doit être 'Menu', 'Plat' ou 'Avis'." });
+  // Vérifie le modèle cible
+  const allowedModels = ["Menu", "Plat", "Avis"];
+  if (!cibleModel || !allowedModels.includes(cibleModel)) {
+    return res.status(400).json({ error: `Le modèle cible est invalide. Valeurs autorisées : ${allowedModels.join(", ")}` });
   }
 
   next();
 };
+
