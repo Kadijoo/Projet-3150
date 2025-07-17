@@ -1,0 +1,29 @@
+.search-header {
+  background-color: #222;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;              /* occupe toute la largeur */
+  box-sizing: border-box;
+}
+
+.search-header .logo {
+  font-size: 24px;
+  color: #61dafb;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.search-header input {
+  flex: 1;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Pour que le bouton profil reste bien à droite */
+.search-header > div:last-child {
+  margin-left: auto;
+}
