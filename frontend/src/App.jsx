@@ -17,10 +17,8 @@ import Layout from "./components/Layout.jsx";
 import AjouterPlat from "./pages/AjouterPlat";
 import ListePlats from "./pages/ListePlats";
 import AvisRestaurant from "./pages/AvisRestaurant";
-import CreerPlat from "./pages/CreerPlat";
-import CreerMenu from "./pages/CreerMenu";
-import AfficherPlats from "./pages/AfficherPlats";
-import AfficherMenus from "./pages/AfficherMenus";
+import CreerPlatMenu from "./pages/CreerPlatMenu";
+import VoirPlatMenu from "./pages/VoirPlatMenu";
 import "./styles/App.css";
 
 function AccueilRedirect() {
@@ -55,10 +53,8 @@ function App() {
         <Route path="/ajouter-plat" element={<AjouterPlat />} />
         <Route path="/mes-plats" element={<ListePlats />} />
         <Route path="/avis-restaurant/:nom" element={<AvisRestaurant />} />
-        <Route path="/creer-plat" element={<CreerPlat />} />
-        <Route path="/creer-menu" element={<CreerMenu />} />
-        <Route path="/afficher-plats" element={<AfficherPlats />} />
-        <Route path="/afficher-menus" element={<AfficherMenus />} />
+        <Route path="/creer-plat-menu" element={<CreerPlatMenu />} />
+        <Route path="/voir-plat-menu" element={<VoirPlatMenu />} />
 
         <Route path="*" element={<Login />} />
       </Routes>

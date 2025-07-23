@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 function AccueilRestaurant() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [menuOuvert, setMenuOuvert] = useState(false);
 
   const notifications = [];
 
@@ -46,24 +47,28 @@ function AccueilRestaurant() {
       <main className="main-content">
         <h2>Bienvenue Restaurateur</h2>
 
-        <section className="notifications">
-          <h3>🔔 Notifications</h3>
-          <ul>
-            {notifications.length > 0 ? (
-              notifications.map((msg, i) => <li key={i}>{msg}</li>)
-            ) : (
-              <li>Aucune notification pour l'instant.</li>
-            )}
-          </ul>
-        </section>
-
         <section className="actions-restaurateur">
           <h3>🛠️ Actions du restaurateur</h3>
           <div className="action-buttons">
-            <button onClick={() => navigate("/creer-plat")}>Créer un plat</button>
-            <button onClick={() => navigate("/creer-menu")}>Créer un menu</button>
-            <button onClick={() => navigate("/afficher-plats")}>Afficher les plats</button>
-            <button onClick={() => navigate("/afficher-menus")}>📋 Afficher mes menus</button>
+            <div className="dropdown" tabIndex={0}>
+              <button className="dropdown-toggle">🍽️ Créer plat/menu ▾</button>
+              <div className="dropdown-menu">
+                <button onClick={() => navigate("/creer-plat-menu?type=plat")}>
+                  Créer un plat
+                </button>
+                <button onClick={() => navigate("/creer-plat-menu?type=menu")}>
+                  Créer un menu
+                </button>
+              </div>
+            </div>
+
+            <div className="dropdown" tabIndex={0}>
+              <button className="dropdown-toggle">👁️ Voir plat/menu ▾</button>
+              <div className="dropdown-menu">
+                <button onClick={() => navigate("/voir-plat-menu?type=plat")}>Voir les plats</button>
+                <button onClick={() => navigate("/voir-plat-menu?type=menu")}>Voir les menus</button>
+              </div>
+            </div>
           </div>
         </section>
 

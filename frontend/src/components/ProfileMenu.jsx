@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ProfileMenu() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const menuRef = useRef(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const toggleMenu = () => setOpen(!open);
@@ -13,16 +14,22 @@ function ProfileMenu() {
     navigate("/login");
   };
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
+  const handleLogin = () => navigate("/login");
 
-  const handleProfile = () => {
-    navigate("/profil"); // à adapter selon ta route réelle
-  };
+  const handleProfile = () => navigate("/profil");
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div ref={menuRef} style={{ position: "relative" }}>
       <button
         onClick={toggleMenu}
         style={{

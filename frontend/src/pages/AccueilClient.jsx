@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import "../styles/App.css";
 import { useNavigate } from "react-router-dom";
 import { filtrerParTerme } from "../utils/filtrage";
+import ProfileMenu from "../components/ProfileMenu";
 
 // Données des plats
 const plats = [
@@ -98,7 +99,9 @@ function AccueilClient() {
 
     return (
         <div className="page-container">
-            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            <div style={{ position: "relative" }}>
+                <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            </div>
 
             <main className="main-content">
                 <h2>Ces plats attendent votre avis</h2>
