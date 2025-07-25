@@ -6,6 +6,7 @@ function ProfileMenu() {
   const [open, setOpen] = useState(false);
   const [showProfilModal, setShowProfilModal] = useState(false);
   const navigate = useNavigate();
+  const menuRef = useRef(null);
   const user = JSON.parse(localStorage.getItem("user"));
   const photo = user?.photo;
 
@@ -19,6 +20,7 @@ function ProfileMenu() {
   };
 
   const handleLogin = () => navigate("/login");
+  const handleLogin = () => navigate("/login");
 
   const handleProfile = () => {
     setShowProfilModal(true); // au lieu de rediriger
@@ -26,7 +28,7 @@ function ProfileMenu() {
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div ref={menuRef} style={{ position: "relative" }}>
       <button
   onClick={toggleMenu}
   style={{

@@ -1,11 +1,17 @@
 .search-header {
   background-color: #222;
-  padding: 20px 40px;
+  padding: 20px 0;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
-  width: 100%;              /* occupe toute la largeur */
-  box-sizing: border-box;
+}
+
+.search-header input {
+  width: 40%; /* Ajuste selon la taille désirée */
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 .search-header .logo {
@@ -15,15 +21,37 @@
   flex-shrink: 0;
 }
 
-.search-header input {
-  flex: 1;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+.notification-wrapper,
+.profile-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-/* Pour que le bouton profil reste bien à droite */
-.search-header > div:last-child {
-  margin-left: auto;
+.notification-icon-container {
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 1000;
 }
