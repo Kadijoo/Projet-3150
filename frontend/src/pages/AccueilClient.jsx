@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import SearchBar from "../components/SearchBar";
-import Footer from "../components/Footer";
-import "../styles/App.css";
 import { useNavigate } from "react-router-dom";
+import "../styles/App.css";
 import { filtrerParTerme } from "../utils/filtrage";
+
 
 // Données des plats
 const plats = [
@@ -98,8 +97,8 @@ function AccueilClient() {
 
     return (
         <div className="page-container">
-            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-
+            
+        
             <main className="main-content">
                 <h2>Ces plats attendent votre avis</h2>
                 <div
@@ -256,8 +255,8 @@ function AccueilClient() {
                     </button>
                 </div>
             </main>
-
-            <Footer />
+    
+            
         </div>
     );
 }

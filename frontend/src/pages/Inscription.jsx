@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { registerUser } from "../services/authService";
 function Inscription() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const initialRole = location.state?.role || "client";
   const [role, setRole] = useState(initialRole);
+  const [nom, setNom] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -15,20 +16,64 @@ function Inscription() {
   const [nomResto, setNomResto] = useState("");
   const [adresse, setAdresse] = useState("");
   const [typeCuisine, setTypeCuisine] = useState("");
-  const [logo, setLogo] = useState("");
+  //const [logo, setLogo] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
-    if (role === "client" && password !== confirm) {
-      alert("Les mots de passe ne correspondent pas.");
-      return;
-        }
+   const [logo, setLogo] = useState(null);
 
-        localStorage.setItem("role", role);
-        navigate("/login");
-    };
+const handleFileChange = (e) => {
+  setLogo(e.target.files[0]);
+};
+
+ 
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (role === "client" && password !== confirm) {
+    alert("Les mots de passe ne correspondent pas.");
+    return;
+  }
+
+  if (password.length < 6) {
+    alert("Le mot de passe doit contenir au moins 6 caractères");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("email", email);
+  formData.append("mot_passe", password);
+  formData.append("type_utilisateur", role);
+
+  if (role === "client") {
+    formData.append("nom", nom);
+  }
+
+  if (role === "restaurateur") {
+  formData.append("nom_restaurant", nomResto);
+  formData.append("adresse", adresse);
+  formData.append("telephone", telephone);
+  formData.append("type_cuisine", typeCuisine);
+  formData.append("description", description);
+  if (logo) {
+    formData.append("logo", logo);
+  }
+}
+
+  try {
+    const response = await registerUser(formData, role); // passez aussi le rôle
+    alert("Inscription réussie !");
+    navigate("/login");
+  } catch (err) {
+    console.error("Erreur complète :", err);
+    if (err.response) {
+      alert("Erreur lors de l'inscription : " + JSON.stringify(err.response.data));
+    } else {
+      alert("Erreur inattendue : " + err.message);
+    }
+  }
+};
+
 
     return (
         <div
@@ -77,6 +122,13 @@ function Inscription() {
                 </div>
 
                 <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Nom"
+                        value={nom}
+                        onChange={(e) => setNom(e.target.value)}
+                        required
+                    />
                     <input
                         type="email"
                         placeholder="E-mail"
@@ -128,20 +180,15 @@ function Inscription() {
                                 onChange={(e) => setAdresse(e.target.value)}
                                 style={inputStyle}
                             />
-                            <input
-                                type="text"
-                                placeholder="Type cuisine"
-                                value={typeCuisine}
-                                onChange={(e) => setTypeCuisine(e.target.value)}
-                                style={inputStyle}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Lien/logo photo"
-                                value={logo}
-                                onChange={(e) => setLogo(e.target.value)}
-                                style={inputStyle}
-                            />
+                            <select value={typeCuisine} onChange={(e) => setTypeCuisine(e.target.value)} style={inputStyle} required >
+                                    <option value="">-- Choisir un type de cuisine --</option>
+                                    <option value="africaine">Africaine</option>
+                                    <option value="asiatique">Asiatique</option>
+                                    <option value="européenne">Européenne</option>
+                                    <option value="fusion">Fusion</option>
+                                    <option value="autre">Autre</option>
+                            </select>
+                            <input type="file" name="logo" accept="image/*" onChange={handleFileChange} />
                             <textarea
                                 placeholder="Description"
                                 value={description}

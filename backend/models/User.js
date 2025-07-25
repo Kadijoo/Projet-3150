@@ -30,7 +30,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     match: /^https?:\/\/.*\.(png|jpg|jpeg|gif|webp)$/i
   },
-  description: { type: String }
+  description: { type: String },
+
+  photo: {
+  type: String,
+  default: ""
+}
 });
 
 module.exports = mongoose.model("User", userSchema);

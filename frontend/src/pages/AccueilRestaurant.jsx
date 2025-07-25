@@ -1,9 +1,7 @@
 // AccueilRestaurant.jsx
-import React, { useState } from "react";
-import SearchBar from "../components/SearchBar";
-import Footer from "../components/Footer";
-import "../styles/AccueilRestaurant.css";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/AccueilRestaurant.css";
 
 function AccueilRestaurant() {
   const navigate = useNavigate();
@@ -42,7 +40,8 @@ function AccueilRestaurant() {
 
   return (
     <div className="page-container">
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      
+      
       <main className="main-content">
         <h2>Bienvenue Restaurateur</h2>
 
@@ -90,7 +89,7 @@ function AccueilRestaurant() {
           </div>
         </section>
       </main>
-      <Footer />
+      
     </div>
   );
 }

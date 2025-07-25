@@ -1,27 +1,31 @@
-import React, { useState } from "react";
 import {
+  Route,
   BrowserRouter as Router,
   Routes,
-  Route,
 } from "react-router-dom";
+import Layout from "./components/Layout.jsx";
+import PrivateRoute from "./components/PrivateRoute";
+import AccueilClient from "./pages/AccueilClient.jsx";
+import AccueilRestaurant from "./pages/AccueilRestaurant.jsx";
+import AfficherMenus from "./pages/AfficherMenus";
+import AfficherPlats from "./pages/AfficherPlats";
+import AjouterPlat from "./pages/AjouterPlat";
 import Avis from "./pages/Avis.jsx";
-import Login from "./pages/Login.jsx";
+import AvisRestaurant from "./pages/AvisRestaurant";
+import CreerMenu from "./pages/CreerMenu";
+import CreerPlat from "./pages/CreerPlat";
 import Inscription from "./pages/Inscription.jsx";
+import ListePlats from "./pages/ListePlats";
+import Login from "./pages/Login.jsx";
 import Menu from "./pages/Menu.jsx";
 import MenuRestaurant from "./pages/MenuRestaurant.jsx";
 import Plat from "./pages/Plat.jsx";
+import Profil from "./pages/Profil";
 import Restaurants from "./pages/Restaurants.jsx";
-import AccueilClient from "./pages/AccueilClient.jsx";
-import AccueilRestaurant from "./pages/AccueilRestaurant.jsx";
-import Layout from "./components/Layout.jsx";
-import AjouterPlat from "./pages/AjouterPlat";
-import ListePlats from "./pages/ListePlats";
-import AvisRestaurant from "./pages/AvisRestaurant";
-import CreerPlat from "./pages/CreerPlat";
-import CreerMenu from "./pages/CreerMenu";
-import AfficherPlats from "./pages/AfficherPlats";
-import AfficherMenus from "./pages/AfficherMenus";
+import Unauthorized from "./pages/Unauthorized";
+
 import "./styles/App.css";
+
 
 function AccueilRedirect() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -37,7 +41,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<AccueilRedirect />} />
+        <Route path="/" element={<AccueilClient />} />
 
         <Route element={<Layout />}>
           <Route path="/accueil" element={<AccueilClient />} />
@@ -59,6 +63,17 @@ function App() {
         <Route path="/creer-menu" element={<CreerMenu />} />
         <Route path="/afficher-plats" element={<AfficherPlats />} />
         <Route path="/afficher-menus" element={<AfficherMenus />} />
+        <Route path="/profil" element={<Profil />} />
+
+        <Route path="/client" element={<PrivateRoute role="client">
+        <AccueilClient /> </PrivateRoute>} />
+
+        <Route path="/restaurateur" element={<PrivateRoute role="restaurateur">
+      <AccueilRestaurant /> </PrivateRoute>}/>
+
+         <Route path="/unauthorized" element={<Unauthorized />} />
+
+
 
         <Route path="*" element={<Login />} />
       </Routes>

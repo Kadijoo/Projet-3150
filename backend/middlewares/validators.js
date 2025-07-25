@@ -1,5 +1,26 @@
 // Middlewares de validation
 
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
+const multer = require("multer");
+const path = require("path");
+
+
+//-------pour les images-----//
+// --- Multer configuration pour les photos de profil ---
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images");
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext);
+  }
+});
+const upload = multer({ storage });
+exports.upload = upload;
+
+
 // === 1. AVIS ===
 exports.validateAvis = (req, res, next) => {
   const { contenu, note, auteur, cible, cibleModel } = req.body;
@@ -298,6 +319,19 @@ exports.validateLogin = (req, res, next) => {
   }
 
   next();
+};
+
+exports.verifyToken = async (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "Token manquant" });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id);
+    next();
+  } catch (err) {
+    res.status(403).json({ error: "Token invalide" });
+  }
 };
 
 
