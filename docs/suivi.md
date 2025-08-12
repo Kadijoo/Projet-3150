@@ -2,14 +2,6 @@
 
 ## Semaine 1
 
-??? note "Mettre en place l'environnement"
-    - [x] Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    - [ ] Vestibulum convallis sit amet nisi a tincidunt
-        * [x] In hac habitasse platea dictumst
-        * [x] In scelerisque nibh non dolor mollis congue sed et metus
-        * [ ] Praesent sed risus massa
-    - [ ] Aenean pretium efficitur erat, donec pharetra, ligula non scelerisque
-
 !!! info "Notes"
     - Il est possible que nous révisions les exigences après le prototypage
 
@@ -24,6 +16,7 @@
 ---
 
 ## Semaine 2
+
 !!! Recherche
     - Recherche d'une API Google
       Étude de l’API Google Places pour récupérer des informations détaillées sur les restaurants 
@@ -36,6 +29,7 @@
 
 
 ## Semaine 3
+
 Analyse, exploration technique et début de conception
 
     - Exploration technique : Test de l’API Google Places via Postman afin d’examiner les données retournées (informations sur les    restaurants,   avis, coordonnées, etc.) et évaluer son intégration potentielle dans le projet.
@@ -44,6 +38,7 @@ Analyse, exploration technique et début de conception
     - Conception UI/UX : Lancement du prototypage de l’interface utilisateur avec Figma : création des premières maquettes des pages principales (accueil, inscription, espace feedback, espace restaurateur,  menu cote client,menu cote restaurateur, liste des feedback cote restaurateur etc..).
 
 ## Semaine 4
+
 Finalisation du prototype, avancée de la conception et recherche d'une nouvelle alternative d'API
 
     - Finalisation du prototype Figma : Intégration des ajustements et retours reçus afin d’améliorer l’expérience utilisateur. Le prototype couvre désormais les principales interfaces du projet 
@@ -119,8 +114,29 @@ Finalisation du prototype, avancée de la conception et recherche d'une nouvelle
 
 ## Semaine 10
 
+!!! note "Travail sur les formulaires frontend & design"
+
+-Amélioration des formulaires (création de plat, création de menu, dépôt d’avis).
+-Conception et intégration du design de la barre de recherche pour un rendu plus ergonomique et centré.
+
 ## Semaine 11
+
+!!! note "Amélioration du design global"
+
+-Optimisation du design des pages pour une meilleure cohérence visuelle.
+-Amélioration du footer pour un affichage plus clair et harmonisé sur toutes les pages.
 
 ## Semaine 12
 
+!!! note "Début du rapport & connexions frontend–backend"
+
+-Rédaction des premières sections du rapport de projet (introduction, analyse des besoins).
+-Mise en place des premières connexions entre le frontend et le backend via API REST.
+
 ## Semaine 13
+
+!!! note "Finalisation rapport & connexions"
+
+-Finalisation complète du rapport écrit.
+-Finalisation et tests des connexions frontend–backend.
+-Vérification du bon fonctionnement des flux entre les formulaires, l’API et la base de données.
