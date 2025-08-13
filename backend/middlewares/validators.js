@@ -1,5 +1,26 @@
 // Middlewares de validation
 
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
+const multer = require("multer");
+const path = require("path");
+
+
+//-------pour les images-----//
+// --- Multer configuration pour les photos de profil ---
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images");
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext);
+  }
+});
+const upload = multer({ storage });
+exports.upload = upload;
+
+
 // === 1. AVIS ===
 exports.validateAvis = (req, res, next) => {
   const { contenu, note, auteur, cible, cibleModel } = req.body;
@@ -127,18 +148,20 @@ exports.validateNotification = (req, res, next) => {
 //-------Plats-----
 
 exports.validatePlatOnCreate = (req, res, next) => {
-  const { nom, prix, menu } = req.body;
+  const { nom, prix } = req.body;
 
+  // ⚠️ Le body peut contenir des strings même pour les nombres
   if (!nom || nom.trim() === "") {
     return res.status(400).json({ error: "Le nom du plat est requis." });
   }
 
-  if (prix === undefined || typeof prix !== "number" || prix < 0) {
+  if (!prix || isNaN(parseFloat(prix)) || parseFloat(prix) < 0) {
     return res.status(400).json({ error: "Le prix du plat doit être un nombre positif." });
   }
 
-  if (!menu) {
-    return res.status(400).json({ error: "Le menu auquel appartient le plat est requis." });
+  // Le champ image est requis
+  if (!req.file) {
+    return res.status(400).json({ error: "L'image du plat est requise." });
   }
 
   next();
@@ -198,26 +221,21 @@ exports.validateProposition = (req, res, next) => {
 //------Restaurant-------
 
 exports.validateRestaurant = (req, res, next) => {
-  const { nom, adresse, ville, note } = req.body;
+  console.log("✅ req.body.nom =", req.body.nom);
+  console.log("✅ req.file =", req.file);
 
-  if (!nom || nom.trim() === "") {
+  if (!req.body.nom) {
     return res.status(400).json({ error: "Le nom du restaurant est requis." });
   }
 
-  if (!adresse || adresse.trim() === "") {
-    return res.status(400).json({ error: "L'adresse du restaurant est requise." });
-  }
-
-  if (!ville || ville.trim() === "") {
-    return res.status(400).json({ error: "La ville est requise." });
-  }
-
-  if (note !== undefined && (typeof note !== "number" || note < 0 || note > 5)) {
-    return res.status(400).json({ error: "La note doit être un nombre entre 0 et 5." });
+  if (!req.file) {
+    return res.status(400).json({ error: "L'image du restaurant est requise." });
   }
 
   next();
 };
+
+
 
 //---------section--------
 
@@ -261,10 +279,32 @@ exports.validateRegisterClient = (req, res, next) => {
 };
 
 exports.validateRegisterRestaurateur = (req, res, next) => {
-  const { nom_restaurant, email, mot_passe, type_utilisateur } = req.body;
+  const { nom, email, mot_passe } = req.body;
 
-  if (!nom_restaurant || nom_restaurant.trim() === "") {
-    return res.status(400).json({ error: "Le nom du restaurant est requis." });
+  if (!nom || nom.trim() === "") {
+    return res.status(400).json({ error: "Le nom est requis." });
+  }
+
+  if (!email || !/.+\@.+\..+/.test(email)) {
+    return res.status(400).json({ error: "Un email valide est requis." });
+  }
+
+  if (!mot_passe || mot_passe.length < 6) {
+    return res.status(400).json({ error: "Le mot de passe doit contenir au moins 6 caractères." });
+  }
+
+  // On fixe le type ici pour éviter les manipulations côté frontend
+  req.body.type_utilisateur = "restaurateur";
+
+  next();
+};
+
+
+/*exports.validateRegisterRestaurateur = (req, res, next) => {
+  const { nom, email, mot_passe, type_utilisateur } = req.body;
+
+  if (!nom || nom.trim() === "") {
+    return res.status(400).json({ error: "Le nom est requis." });
   }
 
   if (!email || !/.+\@.+\..+/.test(email)) {
@@ -280,7 +320,8 @@ exports.validateRegisterRestaurateur = (req, res, next) => {
   }
 
   next();
-};
+};*/
+
 
 exports.validateLogin = (req, res, next) => {
   const { email, mot_de_passe, type_utilisateur } = req.body;
@@ -298,6 +339,19 @@ exports.validateLogin = (req, res, next) => {
   }
 
   next();
+};
+
+exports.verifyToken = async (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "Token manquant" });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id);
+    next();
+  } catch (err) {
+    res.status(403).json({ error: "Token invalide" });
+  }
 };
 
 

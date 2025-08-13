@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import SearchBar from "./SearchBar";
 import Footer from "./Footer";
+import SearchBar from "./SearchBar";
 
 function Layout() {
   const [searchTerm, setSearchTerm] = useState("");

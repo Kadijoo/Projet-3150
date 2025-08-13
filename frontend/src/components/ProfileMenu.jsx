@@ -1,40 +1,45 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Profil from "../pages/Profil"; // <- attention à bien ajuster le chemin selon ton arborescence
 
 function ProfileMenu() {
   const [open, setOpen] = useState(false);
+  const [showProfilModal, setShowProfilModal] = useState(false);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const photo = user?.photo;
+
 
   const toggleMenu = () => setOpen(!open);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     navigate("/login");
   };
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
+  const handleLogin = () => navigate("/login");
 
   const handleProfile = () => {
-    navigate("/profil"); // à adapter selon ta route réelle
+    setShowProfilModal(true); // au lieu de rediriger
+    setOpen(false); // fermer le menu
   };
 
   return (
     <div style={{ position: "relative" }}>
       <button
-        onClick={toggleMenu}
-        style={{
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          fontSize: "22px",
-        }}
-        title="Profil"
-      >
-        👤
-      </button>
+  onClick={toggleMenu}
+  style={{
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+  }}
+  title="Profil"
+>
+  <img src="/images/utilisateur.png" alt="Logo"
+  style={{width: "40px",height: "40px"}} />
+</button>
+
       {open && (
         <div
           style={{
@@ -64,6 +69,9 @@ function ProfileMenu() {
           </ul>
         </div>
       )}
+
+      {/* Affichage de la modale */}
+      {showProfilModal && <Profil onClose={() => setShowProfilModal(false)} />}
     </div>
   );
 }

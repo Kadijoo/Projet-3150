@@ -2,7 +2,7 @@ const Menu = require("../models/Menu");
 
 exports.createMenu = async (req, res) => {
   try {
-    const { titre, description, statut, disponible, restaurant } = req.body;
+    const { titre, description, type, statut, disponible, restaurant } = req.body;
 
     if (!titre || !restaurant) {
       return res.status(400).json({ message: "Les champs 'titre' et 'restaurant' sont requis." });
@@ -10,6 +10,7 @@ exports.createMenu = async (req, res) => {
 
     const newMenu = new Menu({
       titre,
+      type,
       description: description || "",
       statut: statut || "actif",
       disponible: disponible !== undefined ? disponible : true,
@@ -33,10 +34,76 @@ exports.getAllMenus = async (req, res) => {
   }
 };
 
+exports.getAllMenusWithPlats = async (req, res) => {
+  try {
+    const menus = await Menu.find()
+      .populate("restaurant")
+      .populate({
+        path: "plats",
+        populate: [
+          {
+            path: "ingredients",
+            populate: { path: "categorie" }
+          },
+          {
+            path: "auteur",
+            select: "nom_restaurant"
+          }
+        ]
+      });
+
+    res.status(200).json(menus);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// menuController.js — getMenusWithPlats (patch)
+/*exports.getMenusWithPlats = async (req, res) => {
+  try {
+    const menus = await Menu.find({})
+      .populate({
+        path: "plats",
+        populate: [
+          { path: "categorie", select: "nom" },
+          { path: "auteur", select: "_id nom nom_restaurant" },
+          // 👇 AJOUT: ingrédients + leur catégorie
+          { path: "ingredients", populate: { path: "categorie", select: "nom" } },
+        ],
+      })
+      // garde ton populate restaurant si tu l’as
+      .populate({
+        path: "restaurant",
+        select: "nom proprietaire",
+        populate: { path: "proprietaire", select: "_id nom nom_restaurant" },
+      })
+      .lean();
+    res.json(menus);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+*/
+
+
 //  Obtenir un menu par ID
 exports.getMenuById = async (req, res) => {
   try {
-    const menu = await Menu.findById(req.params.id).populate("restaurant");
+    const menu = await Menu.findById(req.params.id)
+      .populate("restaurant")
+      .populate({
+        path: "plats",
+        populate: [
+          {
+            path: "ingredients",
+            populate: { path: "categorie" }
+          },
+          {
+            path: "auteur", // si tu veux aussi le nom du resto
+            select: "nom_restaurant"
+          }
+        ]
+      });
 
     if (!menu) {
       return res.status(404).json({ message: "Menu non trouvé." });
@@ -47,6 +114,31 @@ exports.getMenuById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+exports.getMenusByRestaurateurId = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const menus = await Menu.find({ restaurant: id })
+      .populate({
+        path: "plats",
+        populate: {
+          path: "ingredients",
+          populate: {
+            path: "categorie",
+            model: "Categorie",
+          },
+        },
+      })
+      .populate("restaurant", "nom_restaurant");
+
+    res.status(200).json(menus);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur serveur", error });
+  }
+};
+
 
 //  Mettre à jour un menu
 exports.updateMenu = async (req, res) => {

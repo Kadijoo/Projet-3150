@@ -1,12 +1,13 @@
 // app.js
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 
 // Import des routeurs
@@ -36,5 +37,8 @@ app.use("/api/ingredients", ingredientRoutes);
 app.use("/api/categories", categorieRoutes);
 app.use("/api/menu-items", menuItemRoutes);
 app.use("/api/sections", sectionRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/images", express.static("images"));
+app.use(express.urlencoded({ extended: true })); // pour multipart/form-data (FormData)
 
 module.exports = app;

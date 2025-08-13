@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { loginUser } from "../services/authService";
 
 function Login() {
   const [role, setRole] = useState("client");
@@ -11,28 +12,38 @@ function Login() {
   // Redirection après login (par défaut vers "/")
   const from = location.state?.from || "/";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // 🧹 Nettoyer les anciennes données utilisateur
-    localStorage.removeItem("user");
-    localStorage.removeItem("role");
-    localStorage.removeItem("platsVotes"); // au cas où
-
-    // 🆕 Création du nouvel utilisateur
-    const utilisateur = {
+  try {
+    const data = await loginUser({
       email,
-      role,
-    };
+      mot_de_passe: password,
+      type_utilisateur: role,
+    });
 
-    // 💾 Enregistrement dans localStorage
-    localStorage.setItem("user", JSON.stringify(utilisateur));
-    localStorage.setItem("role", role);
+    
 
-    // 🔁 Redirection vers la page souhaitée
-    console.log("🔐 Connexion réussie pour :", utilisateur);
-    navigate(from, { replace: true });
-  };
+    console.log("Login réussi:", data);
+    if (data.utilisateur.type === "client") {
+    navigate("/client", { replace: true });
+      } else if (data.utilisateur.type === "restaurateur") {
+    navigate("/restaurateur", { replace: true });
+      } else {
+    navigate("/", { replace: true }); 
+    }
+
+    // Stocker l'utilisateur dans localStorage
+    
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify({ ...data.utilisateur, role: data.utilisateur.type }));
+
+  } catch (err) {
+    console.error(err);
+    alert("Échec de la connexion : " + (err.response?.data?.message || "Erreur serveur"));
+  }
+};
+
 
   return (
     <div

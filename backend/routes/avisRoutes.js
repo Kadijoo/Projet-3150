@@ -7,7 +7,9 @@ router.post("/",validateAvis, avisController.create);
 router.get("/", avisController.getAll);
 router.get("/:id", avisController.getById);
 router.get("/utilisateur/:userId", avisController.getByUser);
+//router.get("/", avisController.getAvis);
 router.put("/:id",validateAvis, avisController.update);
 router.delete("/:id", avisController.remove);
 
 module.exports = router;
+

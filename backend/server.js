@@ -3,8 +3,11 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const app = require("./app");
 
+
 const port = process.env.PORT || 5000;
 const uri = process.env.ATLAS_URI;
+
+//app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 mongoose.connect(uri);
 const connection = mongoose.connection;

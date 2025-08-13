@@ -13,6 +13,15 @@ const restaurantSchema = new mongoose.Schema({
     type: String,
     required: [true, "La ville est requise"]
   },
+  description: {
+    type: String,
+    default: ""
+  },
+  image: {
+  type: String,
+  required: [true, "L'image du restaurant est requise"]
+},
+
   note: {
     type: Number,
     min: [0, "La note ne peut pas être inférieure à 0"],

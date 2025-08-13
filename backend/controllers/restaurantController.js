@@ -2,9 +2,13 @@ const Restaurant = require("../models/Restaurant");
 
 const User = require("../models/User");
 
+
 exports.create = async (req, res) => {
   try {
-    const { proprietaire } = req.body;
+    console.log("req.body =", req.body);
+    console.log("req.file =", req.file);
+    
+    const { nom, adresse, ville, description, proprietaire } = req.body;
 
     // 1. Vérifier que le propriétaire est bien un utilisateur existant
     const user = await User.findById(proprietaire);
@@ -17,14 +21,38 @@ exports.create = async (req, res) => {
       return res.status(400).json({ error: "Seuls les restaurateurs peuvent créer un restaurant." });
     }
 
-    // 3. Créer le restaurant
-    const restaurant = new Restaurant(req.body);
+    // 3. Vérifier que l'image a bien été envoyée
+    if (!req.file) {
+      return res.status(400).json({ error: "L'image du restaurant est requise." });
+    }
+
+    // 4. Créer le restaurant avec le chemin de l’image
+    const restaurant = new Restaurant({
+      nom,
+      adresse,
+      ville,
+      description,
+      proprietaire,
+      image: `/images/${req.file.filename}` // chemin de l'image sur le serveur
+    });
+
     await restaurant.save();
     res.status(201).json(restaurant);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
+/*exports.getRestaurants = async (req, res) => {
+  try {
+    const restos = await Restaurant.find({})
+      .populate({ path: "proprietaire", select: "_id nom nom_restaurant" })
+      .lean();
+    res.json(restos);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};*/
 
 exports.getAll = async (req, res) => {
   try {
@@ -64,5 +92,10 @@ exports.remove = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+
+
+
+
 
 

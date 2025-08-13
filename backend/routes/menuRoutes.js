@@ -11,13 +11,21 @@ router.get("/:menuId/plats", platController.getPlatsByMenu);
 router.post("/:menuId/plats", validatePlatOnCreate, platController.createPlatForMenu);
 router.put("/:menuId/plats/:id",validatePlatOnUpdate, platController.updatePlatInMenu);
 router.delete("/:menuId/plats/:platId", platController.deletePlatFromMenu);
+router.put("/:menuId/associer-plat/:platId", platController.associerPlatAuMenu);
+//router.delete("/:menuId/plats/:platId", platController.deletePlatFromMenu);
+//router.get("/with-plats", menuController.getAllMenusWithPlats);
+
+
 
 //------route pour menu-----
 router.post("/",validateMenu, menuController.createMenu);
+//router.get("/with-plats", menuController.getMenusWithPlats);
+router.get("/with-plats", menuController.getAllMenusWithPlats);
 router.get("/", menuController.getAllMenus);
 router.get("/:id", menuController.getMenuById);
 router.put("/:id",validateMenu, menuController.updateMenu);
 router.delete("/:id", menuController.deleteMenu);
+router.get("/by-restaurateur/:id", menuController.getMenusByRestaurateurId);
 
 // Routes MenuItem par menu
 router.get("/:menuId/items", menuItemController.getMenuItems);
